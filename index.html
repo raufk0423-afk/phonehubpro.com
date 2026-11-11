@@ -3,344 +3,450 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PhoneHub Pro — Inventory, billing and repairs for phone shops, on your Mac</title>
-<meta name="description" content="PhoneHub Pro runs your phone shop from one screen: stock and IMEI tracking, fast billing, sale reports, repairs, disputes, barcode scanner and printer support. Runs offline on your Mac.">
+<title>PhoneHub Pro — the operating system for phone shops</title>
+<meta name="description" content="PhoneHub Pro runs your phone shop from one screen: stock and IMEI tracking, fast billing, repairs, disputes and profit reports. Offline, on your own Mac or PC. Free.">
 <link rel="canonical" href="https://phonehubpro.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://phonehubpro.com/">
-<meta property="og:title" content="PhoneHub Pro — run your phone shop from one screen">
-<meta property="og:description" content="Stock, billing, repairs, reports and receipts for phone shops. Runs on your Mac, offline, with your data on your machine.">
+<meta property="og:title" content="PhoneHub Pro — the operating system for phone shops">
+<meta property="og:description" content="Stock, billing, repairs, reports and receipts for phone shops. Runs on your Mac or PC, offline, with your data on your machine.">
 <meta property="og:image" content="https://phonehubpro.com/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/logo.png">
 <link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
 
-<header class="topbar">
-  <div class="wrap topbar-in">
+<!-- the sky: a real photograph by day, a live shader at night -->
+<div class="page-sky" id="pageWrap" aria-hidden="true">
+  <div class="ph a on" id="pagePhA"></div>
+  <div class="ph b" id="pagePhB"></div>
+  <div class="ph-tint" id="pageTint"></div>
+  <canvas class="skygl" id="pageSky"></canvas>
+  <div class="page-sun"></div>
+  <div class="page-shade"></div>
+</div>
+<div class="page-guard" aria-hidden="true"></div>
+
+<div class="topbar-wrap">
+  <div class="topbar">
     <a class="brand" href="#top" aria-label="PhoneHub Pro home">
-      <img src="assets/logo.png" alt="" width="34" height="34">
-      <span>PhoneHub <b>Pro</b></span>
+      <img src="assets/logo.png" alt="" width="22" height="22">
+      <span>PhoneHub&nbsp;<b>Pro</b></span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a href="#tour">Tour</a>
-      <a href="#features">Features</a>
-      <a href="#workflow">How shops use it</a>
+      <a href="#sky">Sky theme</a>
+      <a href="#day">The day</a>
+      <a href="#tour">The app</a>
       <a href="#install">Install</a>
-      <a href="#support">Support</a>
+      <a href="#support">Questions</a>
     </nav>
-    <a class="btn btn-sm" href="#download">Download</a>
+    <a class="dl os-nav-btn" href="downloads/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download for Mac</span></a>
   </div>
-</header>
+</div>
 
 <main id="main">
-  <section class="hero" id="top">
-    <div class="wrap hero-in">
-      <div class="hero-copy">
-        <p class="eyebrow">For phone shops · macOS</p>
-        <h1>Run your whole shop from one screen.</h1>
-        <p class="lede">
-          Stock, IMEI history, billing, repairs, disputes and profit reports — in one fast
-          app that works offline. Your records stay on your computer, not on someone else's server.
-        </p>
-        <div class="cta-row">
-          <a class="btn" href="#download">Download free</a>
-          <span class="cta-meta">v12.9.2 · Mac &amp; Windows · no account</span>
-        </div>
-        <ul class="hero-points">
-          <li><strong>No account.</strong> Install, open, start selling.</li>
-          <li><strong>No internet needed.</strong> Your shop keeps running.</li>
-          <li><strong>Built for walk-ins.</strong> Sell to a customer with no saved profile.</li>
-        </ul>
-      </div>
 
-      <div class="hero-shot" aria-hidden="true">
-        <div class="shot">
-          <div class="shot-bar">
-            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-            <span class="shot-title">PhoneHub Pro — Dashboard</span>
-          </div>
-          <div class="shot-body">
-            <div class="shot-side">
-              <span class="si active">Dashboard</span>
-              <span class="si">Inventory</span>
-              <span class="si">New sale</span>
-              <span class="si">Bills</span>
-              <span class="si">Stock tools</span>
-              <span class="si">Reports</span>
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <div class="wrap">
+      <p class="kicker os-kicker">Now on macOS and Windows</p>
+      <h1 class="display">Your shop.<br><em>Under its own sky.</em></h1>
+      <p class="lede os-lede">Stock, IMEI history, billing, repairs and profit — fast, offline, and yours. The board greets you in today's real sky, over your city.</p>
+      <div class="cta">
+        <a class="dl os-dl-hero" href="downloads/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download free ↓</span></a>
+        <a class="ghost" href="#day">Walk the counter ›</a>
+      </div>
+      <p class="trust os-line">For Mac · macOS 14+ · Apple Silicon · 38 MB · no account, no fee</p>
+    </div>
+
+    <div class="wrap">
+      <div class="shell">
+        <div class="wbar"><span class="dots"><i></i><i></i><i></i></span>PhoneHub Pro — Command Center</div>
+        <div class="app">
+          <aside class="side">
+            <div class="brand"><img src="assets/logo.png" alt="" width="26" height="26"><span>PhoneHub Pro<small>RETAIL OS</small></span></div>
+            <nav class="snav" aria-label="App screens">
+              <a class="on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</a>
+              <a><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/></svg>Inventory</a>
+              <a><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6"/></svg>Bills &amp; Invoices</a>
+              <a><svg viewBox="0 0 24 24"><path d="M4 9h11l-3-3M20 15H9l3 3"/></svg>Returns</a>
+              <a><svg viewBox="0 0 24 24"><path d="M4 7h11v10H4zM15 10h4l2 3v4h-6"/><circle cx="8" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>Shipments</a>
+              <a><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4V11M21 7v10l-9 4"/></svg>Suppliers</a>
+              <a><svg viewBox="0 0 24 24"><path d="M5 4h14l-1.5 16h-11L5 4Z"/><path d="M9 9h6"/></svg>Purchases</a>
+              <a><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.4"/></svg>Cash Handling</a>
+              <a><svg viewBox="0 0 24 24"><path d="M14 6a4 4 0 0 0-5 5l-6 6 3 3 6-6a4 4 0 0 0 5-5l-3 3-2-2 2-4Z"/></svg>Repairs</a>
+              <a><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>Stickers</a>
+              <a><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/><circle cx="18" cy="12" r="2"/></svg>Stock Tools</a>
+              <a><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reports</a>
+              <a><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0M17 11h4M19 9v4"/></svg>Accounts</a>
+              <a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Settings</a>
+            </nav>
+            <div class="foot"><span><b>Live sync</b> · off</span><span>Works offline · v12.9.2</span></div>
+          </aside>
+
+          <div class="appmain">
+            <div class="console">
+              <div><h3>Command Center</h3><div class="sub" id="todayLabel">—</div></div>
+              <div class="live-chip"><span class="dot"></span><span id="chipText">Finding your sky…</span></div>
+              <div class="clock" id="clock">--:--</div>
+              <div class="newsale">+ New Sale</div>
             </div>
-            <div class="shot-main">
-              <div class="kpis">
-                <div class="kpi"><span>Today's sales</span><b>AED 4,250</b></div>
-                <div class="kpi"><span>Gross profit</span><b>AED 780</b></div>
-                <div class="kpi"><span>In stock</span><b>54</b></div>
+
+            <div class="grid">
+              <div class="card k1"><div class="lbl"><i></i>In stock</div><div class="big"><b data-count="48">0</b></div><div class="small">212 total devices · <b>156 sold</b></div></div>
+              <div class="card k2"><div class="lbl"><i></i>Expenses · month</div><div class="big">AED <b data-count="6200">0</b></div><div class="small">5 repairs open · 3 reserved</div></div>
+
+              <section class="sky-tile" id="tileWrap" aria-label="Live sky daily board">
+                <div class="ph a on" id="tilePhA"></div>
+                <div class="ph b" id="tilePhB"></div>
+                <div class="ph-tint" id="tileTint"></div>
+                <canvas class="skygl" id="tileSky"></canvas>
+                <div class="tile-shade"></div>
+                <div class="tile-ui">
+                  <div class="tile-top">
+                    <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.6"/></svg>
+                    <span id="tilePlace">Finding your sky…</span>
+                    <span class="badge" id="tileLive">LIVE</span>
+                  </div>
+                  <div class="tile-mid">
+                    <div class="cond"><span id="tileIcon"></span><span id="tileCond">—</span></div>
+                    <div class="num"><span id="tileNum">0</span><small>AED</small></div>
+                    <div class="rev">REVENUE TODAY · <span id="tileGreet">—</span> · 7 SALES</div>
+                  </div>
+                  <div class="tile-week" id="tileWeek"></div>
+                </div>
+              </section>
+
+              <div class="card k1"><div class="lbl"><i></i>Needs attention</div><div class="big alert"><b data-count="9">0</b></div><div class="small">3 reserved · 4 in repair · 2 low models · <b class="red">5 due AED 7,350</b></div></div>
+              <div class="card k2"><div class="lbl"><i></i>Cash on hand</div><div class="big">AED <b data-count="48600">0</b></div><div class="small">in the drawer right now</div></div>
+
+              <div class="card chart">
+                <div class="head"><div class="lbl"><i></i>Money trend · last 14 days</div><div class="seg"><span class="on">Day</span><span>Week</span><span>Month</span><span>Year</span></div></div>
+                <div class="bars" aria-hidden="true">
+                  <div><i style="--h:46px"></i><i class="p" style="--h:10px"></i></div>
+                  <div><i style="--h:34px"></i><i class="p" style="--h:8px"></i></div>
+                  <div><i style="--h:62px"></i><i class="p" style="--h:14px"></i></div>
+                  <div><i style="--h:28px"></i><i class="p" style="--h:7px"></i></div>
+                  <div><i class="low" style="--h:80px"></i><i class="p" style="--h:18px"></i></div>
+                  <div><i class="low" style="--h:70px"></i><i class="p" style="--h:16px"></i></div>
+                  <div><i class="low" style="--h:74px"></i><i class="p" style="--h:15px"></i></div>
+                  <div><i class="low" style="--h:58px"></i><i class="p" style="--h:13px"></i></div>
+                  <div><i class="low" style="--h:52px"></i><i class="p" style="--h:11px"></i></div>
+                  <div><i style="--h:96px"></i><i class="p" style="--h:21px"></i></div>
+                  <div><i style="--h:88px"></i><i class="p" style="--h:19px"></i></div>
+                  <div><i style="--h:70px"></i><i class="p" style="--h:16px"></i></div>
+                  <div><i style="--h:40px"></i><i class="p" style="--h:9px"></i></div>
+                  <div><i style="--h:30px"></i><i class="p" style="--h:7px"></i></div>
+                </div>
               </div>
-              <div class="tbl">
-                <div class="tr th"><span>Phone</span><span>IMEI</span><span>Cost</span><span>Status</span></div>
-                <div class="tr"><span>iPhone 15 Pro</span><span>…4821</span><span>AED 2,900</span><span class="pill ok">In stock</span></div>
-                <div class="tr"><span>Galaxy S24</span><span>…1173</span><span>AED 1,850</span><span class="pill ok">In stock</span></div>
-                <div class="tr"><span>iPhone 13</span><span>…9042</span><span>AED 1,500</span><span class="pill sold">Sold</span></div>
-                <div class="tr"><span>Redmi Note 13</span><span>…3355</span><span>AED 640</span><span class="pill res">Reserved</span></div>
+
+              <div class="card brands">
+                <div class="lbl"><i></i>Stock by brand</div>
+                <div class="small mt">28 iPhone · <b>12 Samsung</b></div>
+                <div class="small">4 Pixel · 3 Xiaomi · 1 Nothing</div>
+                <div class="mini-lbl">Potential profit</div>
+                <div class="big green sml">AED 96,400</div>
               </div>
-              <p class="shot-note">Sample data shown</p>
+
+              <div class="card attn">
+                <div class="lbl"><i></i>Owed to you</div>
+                <div class="big alert">AED 7,350</div>
+                <div class="small">5 open bills · money still to collect</div>
+                <div class="mini-lbl">Due this week</div>
+                <div class="big sml">AED 3,200</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <p class="cap" id="skycap">Your live sky · shop figures are sample data</p>
     </div>
-  </section>
+  </header>
 
-  <section class="strip" aria-label="What it replaces">
-    <div class="wrap strip-in">
-      <span>Replaces</span>
-      <b>Notebook for IMEIs</b>
-      <b>Excel stock sheet</b>
-      <b>Handwritten bills</b>
-      <b>Calculator for profit</b>
-    </div>
-  </section>
-
-  <section class="tour" id="tour">
+  <!-- ============ THE SKY ============ -->
+  <section class="sec" id="sky">
     <div class="wrap">
-      <p class="eyebrow">Take the tour</p>
-      <h2>Five screens run the whole shop.</h2>
-      <p class="tour-lede">
-        Point at any screen and it steps forward. Dashboard, inventory, billing, stock
-        tools and reports — everything the counter does, one click apart.
-      </p>
-    </div>
-    <ul class="tour-row">
-      <li class="tile" tabindex="0" aria-label="Dashboard screen">
-        <span class="scr"><span class="scr-bar w70"></span><span class="scr-bar w45"></span><span class="scr-bar w60"></span><span class="scr-pill red"></span></span>
-        <span class="tile-name">Dashboard</span>
-      </li>
-      <li class="tile" tabindex="0" aria-label="Inventory screen">
-        <span class="scr"><span class="scr-bar w55"></span><span class="scr-bar w70"></span><span class="scr-bar w40"></span><span class="scr-pill gold"></span></span>
-        <span class="tile-name">Inventory</span>
-      </li>
-      <li class="tile" tabindex="0" aria-label="New sale screen">
-        <span class="scr"><span class="scr-bar w45"></span><span class="scr-bar w60"></span><span class="scr-bar w70"></span><span class="scr-pill red"></span></span>
-        <span class="tile-name">New sale</span>
-      </li>
-      <li class="tile" tabindex="0" aria-label="Bills screen">
-        <span class="scr"><span class="scr-bar w60"></span><span class="scr-bar w40"></span><span class="scr-bar w55"></span><span class="scr-pill green"></span></span>
-        <span class="tile-name">Bills</span>
-      </li>
-      <li class="tile" tabindex="0" aria-label="Reports screen">
-        <span class="scr"><span class="scr-bar w70"></span><span class="scr-bar w55"></span><span class="scr-bar w45"></span><span class="scr-pill gold"></span></span>
-        <span class="tile-name">Reports</span>
-      </li>
-    </ul>
-    <p class="tour-hint">Hover a screen — or tap one on touch · sample data shown</p>
-  </section>
+      <p class="kicker">One app · many moods</p>
+      <h2 class="h2">Your shop, in the <em>Sky</em> theme.</h2>
+      <p class="sub">The sky behind that board is not a picture. On a clear day it is a real sky photograph; after dark it is a rendered moon, stars and cloud deck that move. Either way it is today's weather where you are, read live when the page opens — and the board inside it is the same one that greets you in the app.</p>
 
-  <section class="section" id="features">
-    <div class="wrap">
-      <p class="eyebrow">Everything the counter needs</p>
-      <h2>One app, the whole day's work</h2>
-      <p class="section-lede">
-        PhoneHub Pro was built for a working shop floor, not for head office. Everything is one
-        click from the counter, and nothing needs a second subscription.
-      </p>
+      <div class="state-grid" id="states"></div>
+      <p class="hint">Tap any sky to preview it on this page · <button type="button" class="linkbtn" id="backLive">back to my live sky</button></p>
 
-      <div class="grid">
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/><circle cx="7" cy="7" r="1.6"/><circle cx="7" cy="12" r="1.6"/><circle cx="7" cy="17" r="1.6"/></svg>
-          <h3>Stock with full IMEI history</h3>
-          <p>Every phone keeps its price, grade, condition, supplier and every event — bought, priced, reserved, sold, returned.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
-          <h3>Billing in seconds</h3>
-          <p>Scan or search, add to the bill, take payment, print. Walk-in customers need no saved profile or ID.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V4M16 19v-7M22 19H2"/></svg>
-          <h3>Reports that match your drawer</h3>
-          <p>Day closing, P&amp;L, receivables ageing, sales by model, stock value and per-phone profit — from the same numbers.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 1 5 5L11 20l-5-5z"/><path d="M5 15l4 4"/></svg>
-          <h3>Repairs and disputes</h3>
-          <p>Book a repair cost against a phone so the profit stays honest, or record a supplier refund that lowers its cost.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3"/><path d="M4 12h16"/></svg>
-          <h3>Scanner and printer ready</h3>
-          <p>A plug-and-play USB barcode scanner works on every screen — no field to click first. Print rich bills and stickers.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
-          <h3>Free built-in assistant</h3>
-          <p>Ask “what did I sell today?” or “profit for 60 days” and get real numbers from your own books, using a free local AI.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7z"/></svg>
-          <h3>Looks the way you like</h3>
-          <p>Twenty themes and accent colours, including the Persian Glass set, with reduced-motion and high-contrast modes.</p>
-        </article>
-
-        <article class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.2-2.9 7.9-7 9-4.1-1.1-7-4.8-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-          <h3>Your data stays with you</h3>
-          <p>One local database, automatic daily backups. No cloud account required, and it opens without internet.</p>
-        </article>
+      <div class="grid3 infogrid">
+        <div class="info reveal"><h3>Read from your connection</h3><p>City and country come from your internet address — no location prompt, no device permission, nothing stored on our side. The weather itself comes from Open-Meteo.</p></div>
+        <div class="info reveal"><h3>Nine skies, one board</h3><p>Clear, partly cloudy, overcast, rain, thunderstorm, snow, fog, clear night and partly cloudy night. The board re-typesets itself for each one instead of sitting on a white page.</p></div>
+        <div class="info reveal"><h3>Offline keeps the last sky</h3><p>The shop never needs the internet. If the app cannot look outside, it keeps the last reading it saw and carries on billing.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section alt" id="workflow">
+  <!-- ============ A DAY ON THE COUNTER ============ -->
+  <section class="sec" id="day">
     <div class="wrap">
-      <p class="eyebrow">Built for a real counter</p>
-      <h2>The way shops actually sell</h2>
+      <p class="kicker">The day</p>
+      <h2 class="h2">A shop day, <em>start to close.</em></h2>
+      <p class="sub">Five screens carry the whole counter. This is what a real Wednesday looks like inside PhoneHub Pro — timestamps are illustrative, numbers are sample shop data.</p>
 
-      <div class="rows">
-        <div class="row">
-          <h3>Walk-in customers, no paperwork</h3>
-          <p>Most sales never get a saved customer profile. PhoneHub Pro asks for a name only if you want it, and the bill still goes through, prints, and lands in today's totals.</p>
-        </div>
-        <div class="row">
-          <h3>Money from wherever it came</h3>
-          <p>Paid from the drawer, the bank, outside cash, or a partner — each phone records where its cost came from, so the drawer and profit never disagree.</p>
-        </div>
-        <div class="row">
-          <h3>Loans from people, not banks</h3>
-          <p>Informal lenders don't need to be pre-declared. Record capital and repayments as they happen, then print the statement when they ask.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="install">
-    <div class="wrap">
-      <p class="eyebrow">Setup</p>
-      <h2>Installed in three minutes</h2>
-
-      <ol class="steps">
-        <li>
-          <span class="num">1</span>
-          <div>
-            <h3>Download and open the DMG</h3>
-            <p>Double-click the downloaded file to open the PhoneHub Pro installer window.</p>
+      <ol class="tl">
+        <li class="tl-item reveal">
+          <div class="tl-time">09:12</div>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <h3>Open the shop</h3>
+            <p>The drawer opens at the figure you counted last night. Cash handling records the opening float so the day closes against something real.</p>
+            <span class="tl-tag">Drawer · AED 48,600 opening</span>
           </div>
         </li>
-        <li>
-          <span class="num">2</span>
-          <div>
-            <h3>Run “INSTALL PHONEHUB PRO”</h3>
-            <p>It copies the app to Applications and prepares the built-in engine. The first time, macOS may say it is from an unidentified developer — that is normal for independent apps. Right-click the installer → Open → Open. Ten seconds, once only, and never again.</p>
+        <li class="tl-item reveal">
+          <div class="tl-time">10:04</div>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <h3>A walk-in buys a phone</h3>
+            <p>No saved profile needed. Scan the IMEI, take a first name, print the VAT invoice, and the stock value and profit update the moment the bill lands.</p>
+            <span class="tl-tag">Sale · 12 seconds · invoice printed</span>
           </div>
         </li>
-        <li>
-          <span class="num">3</span>
-          <div>
-            <h3>Open PhoneHub Pro and add your first phone</h3>
-            <p>Your data lives in one local folder and is backed up daily. Nothing to sign up for.</p>
+        <li class="tl-item reveal">
+          <div class="tl-time">13:20</div>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <h3>A repair comes in</h3>
+            <p>The ticket is booked against the exact phone, part cost and all. When it is collected the profit is honest, because the repair cost sits on the device's own history.</p>
+            <span class="tl-tag">Repair · 5 open tickets</span>
+          </div>
+        </li>
+        <li class="tl-item reveal">
+          <div class="tl-time">17:45</div>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <h3>Money owed gets collected</h3>
+            <p>Five open bills, AED 7,350 still to come in. Accounts shows who owes what, since when, and against which device — so nothing is remembered by hand.</p>
+            <span class="tl-tag">Receivables · AED 7,350</span>
+          </div>
+        </li>
+        <li class="tl-item reveal">
+          <div class="tl-time">21:00</div>
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-body">
+            <h3>Day close</h3>
+            <p>Revenue, repairs, expenses and the drawer total land in one closing sheet. It matches what is physically in the till, or it tells you exactly where it does not.</p>
+            <span class="tl-tag">Close · revenue AED 18,450</span>
           </div>
         </li>
       </ol>
+    </div>
+  </section>
 
-      <div class="reqs">
-        <div><span>System</span><b>macOS 14 or later</b></div>
-        <div><span>Mac</span><b>Apple Silicon (M1 and newer)</b></div>
-        <div><span>Printer</span><b>Any printer macOS already sees</b></div>
-        <div><span>Scanner</span><b>USB keyboard-wedge scanner</b></div>
+  <!-- ============ WHAT'S INSIDE ============ -->
+  <section class="sec" id="inside">
+    <div class="wrap">
+      <p class="kicker">What's inside</p>
+      <h2 class="h2">Everything the counter touches, <em>in one window.</em></h2>
+
+      <div class="feat">
+        <article class="card feat-card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/></svg>
+          <h3>Stock &amp; IMEI</h3>
+          <p>Every device, its IMEI, grade, cost and asking price — with the full history of that phone one click away.</p>
+          <span class="feat-n">212 devices tracked</span>
+        </article>
+        <article class="card feat-card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6"/></svg>
+          <h3>Billing &amp; VAT invoices</h3>
+          <p>Scan, bill, print. A proper tax invoice for a customer you have never seen before, in seconds.</p>
+          <span class="feat-n">Walk-ins welcome</span>
+        </article>
+        <article class="card feat-card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6a4 4 0 0 0-5 5l-6 6 3 3 6-6a4 4 0 0 0 5-5l-3 3-2-2 2-4Z"/></svg>
+          <h3>Repairs</h3>
+          <p>Intake to delivery, with parts booked to the device so the final profit is not an estimate.</p>
+          <span class="feat-n">5 open tickets</span>
+        </article>
+        <article class="card feat-card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11l-3-3M20 15H9l3 3"/></svg>
+          <h3>Returns &amp; disputes</h3>
+          <p>Money back, exchange, or a loan from a friend recorded properly — including against a single phone.</p>
+          <span class="feat-n">No dead ends</span>
+        </article>
+        <article class="card feat-card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.4"/></svg>
+          <h3>Cash handling</h3>
+          <p>Drawer totals, movements and a day close that matches the physical till — not a guess.</p>
+          <span class="feat-n">Opens &amp; closes daily</span>
+        </article>
+        <article class="card feat-card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          <h3>Reports &amp; profit</h3>
+          <p>Revenue, margin, stock value and receivables over any period, including the money still owed to you.</p>
+          <span class="feat-n">AED 96,400 potential</span>
+        </article>
+      </div>
+      <p class="caption">Screens, figures and names are sample shop data.</p>
+    </div>
+  </section>
+
+  <!-- ============ WHY DIFFERENT ============ -->
+  <section class="sec" id="different">
+    <div class="wrap">
+      <p class="kicker">Why shops switch</p>
+      <h2 class="h2">Not another web dashboard. <em>Software that belongs to you.</em></h2>
+
+      <div class="grid2 why-grid">
+        <div class="why reveal">
+          <h3>Your data never leaves the building</h3>
+          <p>One database on your machine, automatic daily backups. No cloud account, no server in another country, nothing to leak. If the internet dies, your shop doesn't.</p>
+        </div>
+        <div class="why reveal">
+          <h3>Built for walk-ins, not databases</h3>
+          <p>Sell to a customer who gives only a first name. Record a loan from a friend. Book a supplier refund against one phone. The real life of a phone shop — handled.</p>
+        </div>
+        <div class="why reveal">
+          <h3>Plug in and scan</h3>
+          <p>A USB barcode scanner works on every screen without clicking a field first, and any printer macOS or Windows already knows will print your bills and stickers.</p>
+        </div>
+        <div class="why reveal">
+          <h3>Free. Actually free.</h3>
+          <p>No trial, no locked features, no monthly fee. One download and the whole counter is yours — Mac or Windows.</p>
+        </div>
       </div>
 
-      <div class="win-setup">
-        <h3>On Windows</h3>
-        <ol class="steps">
-          <li>
-            <span class="num">1</span>
-            <div>
-              <h3>Download the Windows setup</h3>
-              <p>Grab <b>PhoneHub Pro for Windows</b> below — one .exe file, works on Windows 10 and 11 (64-bit).</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">2</span>
-            <div>
-              <h3>Run the setup file</h3>
-              <p>If Windows SmartScreen shows a blue “Windows protected your PC” screen, click <b>More info</b> → <b>Run anyway</b>. That is the standard notice for independent apps — the setup then installs PhoneHub Pro and a desktop shortcut.</p>
-            </div>
-          </li>
-          <li>
-            <span class="num">3</span>
-            <div>
-              <h3>Open PhoneHub Pro from the desktop</h3>
-              <p>Your shop data is stored on this computer and backed up daily. Nothing to sign up for.</p>
-            </div>
-          </li>
-        </ol>
+      <div class="stats">
+        <div class="stat reveal"><b data-count="5">0</b><span>screens run the shop</span></div>
+        <div class="stat reveal"><b data-count="0">0</b><span>accounts required</span></div>
+        <div class="stat reveal"><b data-count="0">0</b><span>monthly fees</span></div>
+        <div class="stat reveal"><b data-count="100" data-suffix="%">0</b><span>of data on your machine</span></div>
       </div>
     </div>
   </section>
 
-  <section class="download" id="download">
-    <div class="wrap download-in">
-      <div>
-        <h2>Ready when your shop is</h2>
-        <p>One download, no account, no monthly fee. Pick your computer — Mac or Windows — and keep every phone, bill and repair in one place.</p>
+  <!-- ============ TOUR ============ -->
+  <section class="sec" id="tour">
+    <div class="wrap">
+      <p class="kicker">The tour</p>
+      <h2 class="h2">Real screens. <em>The whole counter.</em></h2>
+
+      <div class="grid2 tour-grid">
+        <figure class="shot reveal">
+          <div class="wbar"><span class="dots"><i></i><i></i><i></i></span>Inventory</div>
+          <img src="assets/shots/inventory.jpg" alt="Inventory screen listing phones with IMEI, cost, price and stock value" loading="lazy">
+          <figcaption><b>Inventory.</b> Every phone, every IMEI, graded and priced — with the whole history of the device one click away.</figcaption>
+        </figure>
+        <figure class="shot reveal">
+          <div class="wbar"><span class="dots"><i></i><i></i><i></i></span>Bills &amp; Invoices</div>
+          <img src="assets/shots/bills.jpg" alt="Billing screen with a printed tax invoice preview" loading="lazy">
+          <figcaption><b>Billing.</b> Scan, bill, print. A walk-in with no saved profile still gets a proper VAT invoice in seconds.</figcaption>
+        </figure>
+        <figure class="shot reveal">
+          <div class="wbar"><span class="dots"><i></i><i></i><i></i></span>Repairs</div>
+          <img src="assets/shots/repairs.jpg" alt="Repair tickets tracked from intake to delivery" loading="lazy">
+          <figcaption><b>Repairs.</b> Every ticket tracked to delivery, with the repair cost booked against the phone so profit stays honest.</figcaption>
+        </figure>
+        <figure class="shot reveal">
+          <div class="wbar"><span class="dots"><i></i><i></i><i></i></span>Cash Handling</div>
+          <img src="assets/shots/cash.jpg" alt="Cash handling screen with drawer totals and movements" loading="lazy">
+          <figcaption><b>Cash.</b> Drawer totals, movements and day closing that match what's physically in the drawer.</figcaption>
+        </figure>
       </div>
-      <div class="dl-cards">
-        <div class="download-card">
-          <img src="assets/logo.png" alt="" width="56" height="56">
-          <div class="dl-meta">
-            <b>PhoneHub Pro for Mac</b>
-            <span>v12.9.2 · 38 MB · DMG · macOS 14+ · Apple Silicon</span>
-          </div>
-          <a class="btn" href="downloads/PhoneHubPro-12.9.2.dmg" download>Download</a>
-        </div>
-        <div class="download-card">
-          <img src="assets/logo.png" alt="" width="56" height="56">
-          <div class="dl-meta">
-            <b>PhoneHub Pro for Windows</b>
-            <span>v12.9.2 · 19 MB · EXE · Windows 10/11 · 64-bit</span>
-          </div>
-          <a class="btn" href="downloads/PhoneHubPro-12.9.2-Windows-Setup.exe" download>Download</a>
+      <p class="caption">Real screens. Sample shop data.</p>
+    </div>
+  </section>
+
+  <!-- ============ THEMES ============ -->
+  <section class="sec" id="themes">
+    <div class="wrap">
+      <p class="kicker">Themes</p>
+      <h2 class="h2">Theming is a setting, <em>not a skin.</em></h2>
+      <div class="grid3 themegrid">
+        <div class="tile panel reveal"><b>20+ themes</b><span>Dark Clay, Sky, Persian Glass, Obsidian Copper, Champagne — every screen adapts, not just the colours.</span></div>
+        <div class="tile panel sky-tile-copy reveal"><b>Sky board</b><span>Revenue today, a seven-day strip and the weather where you are, typeset into the sky itself.</span></div>
+        <div class="tile panel reveal"><b>Free</b><span>Every theme included. No account, no subscription, no internet needed.</span></div>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-in">
+          <span>Dark Clay</span><span>Sky</span><span>Persian Glass</span><span>Obsidian Copper</span><span>Champagne</span><span>Midnight Emerald</span><span>Sand Dune</span><span>Neon Monsoon</span><span>Graphite</span><span>Rose Atlas</span><span>Deep Sea</span><span>Amber Night</span>
+          <span>Dark Clay</span><span>Sky</span><span>Persian Glass</span><span>Obsidian Copper</span><span>Champagne</span><span>Midnight Emerald</span><span>Sand Dune</span><span>Neon Monsoon</span><span>Graphite</span><span>Rose Atlas</span><span>Deep Sea</span><span>Amber Night</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="support">
+  <!-- ============ INSTALL ============ -->
+  <section class="sec" id="install">
+    <div class="wrap">
+      <p class="kicker">Setup</p>
+      <h2 class="h2">Selling in <em>three minutes.</em></h2>
+
+      <div class="steps">
+        <div class="step reveal"><span class="n">1</span><h3>Download and open</h3><p class="os-step1">Double-click the DMG to open the installer window.</p></div>
+        <div class="step reveal"><span class="n">2</span><h3>Run the installer</h3><p class="os-step2">If macOS warns about an unidentified developer: right-click → Open → Open. Ten seconds, once.</p></div>
+        <div class="step reveal"><span class="n">3</span><h3>Add your first phone</h3><p class="os-step3">Data lives in one folder on your machine, backed up daily.</p></div>
+      </div>
+      <p class="caption os-reqline">Runs on macOS 14+ (Apple Silicon) · Windows 10/11 64-bit · any printer your computer already sees · USB keyboard-wedge scanners</p>
+    </div>
+  </section>
+
+  <!-- ============ DOWNLOAD ============ -->
+  <section class="sec download" id="download">
     <div class="wrap narrow">
-      <p class="eyebrow">Questions</p>
-      <h2>Before you install</h2>
+      <p class="kicker">Free download</p>
+      <h2 class="h2 center">Take it to your counter.</h2>
+      <div class="dl-cards">
+        <div class="dl-card os-card reveal">
+          <img src="assets/logo.png" alt="" width="40" height="40">
+          <div class="dl-meta">
+            <b class="os-dl-name">PhoneHub Pro for Mac</b>
+            <span class="os-dl-sub">v12.9.2 · DMG · 38 MB · macOS 14+ · Apple Silicon</span>
+          </div>
+          <a class="dl os-card-btn" href="downloads/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download</span></a>
+        </div>
+      </div>
+      <p class="caption center">No account · no subscription · your data, your machine</p>
+      <p class="other-os">Also available <a class="os-other-link" href="downloads/PhoneHubPro-12.9.2-Windows-Setup.exe" download>for Windows</a>.</p>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="sec" id="support">
+    <div class="wrap narrow">
+      <p class="kicker">Questions</p>
+      <h2 class="h2">Before you install</h2>
 
       <details>
         <summary>Is my shop data sent anywhere?</summary>
-        <p>No. Inventory, bills and repairs are stored in a single database on your Mac, with automatic daily backups. The optional AI assistant is turned off until you connect it, and can run entirely on your own machine.</p>
+        <p>No. Inventory, bills and repairs are stored in a single database on your computer, with automatic daily backups. Nothing to sign up for, and it opens without internet.</p>
       </details>
       <details>
         <summary>Will macOS or Windows warn me when I open the app?</summary>
-        <p>Once — and it is a 10-second fix. PhoneHub Pro is distributed directly by its maker instead of through paid developer programs, so a new computer shows a warning the first time. <b>On Mac:</b> right-click (or Control-click) the installer → Open → Open. <b>On Windows:</b> click More info → Run anyway on the blue SmartScreen screen. The installed app opens normally after that, forever.</p>
+        <p>Once — and it is a 10-second fix. PhoneHub Pro is distributed directly by its maker instead of through paid developer programs, so a new computer shows a warning the first time. <b>On Mac:</b> right-click (or Control-click) the installer → Open → Open. <b>On Windows:</b> click More info → Run anyway. The installed app opens normally after that.</p>
       </details>
       <details>
         <summary>Is there a Windows version?</summary>
-        <p>Yes. The download section has a separate Windows 10/11 installer (64-bit). It carries the same shop features and also runs its engine locally — your data stays on your own computer.</p>
+        <p>Yes. The same shop features, a separate Windows 10/11 installer (64-bit), also running entirely on your own computer.</p>
       </details>
       <details>
         <summary>Do I need a subscription?</summary>
-        <p>No. There is nothing to buy and no monthly fee. Optional cloud AI keys are yours and are only used if you turn the assistant on.</p>
+        <p>No. There is nothing to buy and no monthly fee.</p>
       </details>
       <details>
-        <summary>Can two Macs share the same shop?</summary>
-        <p>Each Mac keeps its own local records. PhoneHub Pro includes a local sync guide for shops that want two counters to work together.</p>
+        <summary>How does the website know where I am?</summary>
+        <p>From your connection, not your device — there is no location prompt. Only the city and country are used to pick the sky, and nothing is stored on our side.</p>
+      </details>
+      <details>
+        <summary>Does the sky need internet?</summary>
+        <p>The live sky on this page does, and so does the app's Sky board — it keeps the last sky it saw for offline use. The shop itself never needs the internet.</p>
       </details>
 
-      <div class="support-box">
-        <h3>Need help?</h3>
-        <p>Email <a href="mailto:support@phonehubpro.com">support@phonehubpro.com</a> with your Mac model and what happened. A screenshot of the screen is the fastest way to get an answer.</p>
+      <div class="support-box reveal">
+        <h3>Need a hand?</h3>
+        <p>Email <a href="mailto:support@phonehubpro.com">support@phonehubpro.com</a> with your computer model and what happened. A screenshot gets you the fastest answer.</p>
       </div>
     </div>
   </section>
@@ -349,42 +455,318 @@
 <footer>
   <div class="wrap footer-in">
     <div class="brand">
-      <img src="assets/logo.png" alt="" width="28" height="28">
-      <span>PhoneHub <b>Pro</b></span>
+      <img src="assets/logo.png" alt="" width="26" height="26">
+      <span>PhoneHub&nbsp;<b>Pro</b></span>
     </div>
     <p>© <span id="year">2026</span> Rauf Khan. All rights reserved.</p>
-    <p class="fine">PhoneHub Pro is a macOS application for phone retailers. Not affiliated with Apple Inc.</p>
+    <p class="fine">PhoneHub Pro is retail software for phone shops. Not affiliated with Apple Inc.</p>
   </div>
 </footer>
 
+<script src="assets/sky.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  const menu = document.querySelector('.nav');
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') document.activeElement?.blur();
+
+  /* ---------------- OS awareness: a Mac page or a Windows page ---------------- */
+  const ua = navigator.userAgent;
+  const isWin = /Windows NT|Win64/.test(ua);
+  const forced = new URLSearchParams(location.search).get('os');
+  const os = forced === 'win' || forced === 'mac' ? forced : (isWin ? 'win' : 'mac');
+  document.documentElement.dataset.os = os;
+
+  const DMG = 'downloads/PhoneHubPro-12.9.2.dmg';
+  const EXE = 'downloads/PhoneHubPro-12.9.2-Windows-Setup.exe';
+
+  if (os === 'win') {
+    document.querySelectorAll('.os-nav-btn,.os-dl-hero').forEach(a => a.href = EXE);
+    document.querySelectorAll('.os-label').forEach(el => el.textContent = el.closest('.dl-card') ? 'Download' : (el.closest('.topbar') ? 'Download for Windows' : 'Download free for Windows ↓'));
+    document.querySelector('.os-kicker').textContent = 'Now on Windows 10 and 11';
+    document.querySelector('.os-lede').textContent = 'Stock, IMEI history, billing, repairs and profit — fast, offline, and yours, on your Windows PC.';
+    document.querySelector('.os-line').textContent = 'For Windows · Windows 10/11 · 64-bit · 19 MB · no account, no fee';
+    document.querySelector('.os-step1').textContent = 'Run the setup file. One .exe, Windows 10 and 11 (64-bit).';
+    document.querySelector('.os-step2').textContent = 'If SmartScreen appears: More info → Run anyway. Standard notice for independent apps.';
+    document.querySelector('.os-step3').textContent = 'Open PhoneHub Pro from the desktop. Your shop data is stored on this computer.';
+    document.querySelector('.os-reqline').textContent = 'Runs on Windows 10/11 (64-bit) · any printer your PC already sees · USB keyboard-wedge scanners';
+    document.querySelector('.os-dl-name').textContent = 'PhoneHub Pro for Windows';
+    document.querySelector('.os-dl-sub').textContent = 'v12.9.2 · EXE · 19 MB · Windows 10/11 · 64-bit';
+    const btn = document.querySelector('.os-card-btn');
+    btn.href = EXE;
+    document.querySelector('.os-other-link').href = DMG;
+    document.querySelector('.os-other-link').textContent = 'for Mac';
+  }
+</script>
+
+<script>
+/* ---------------- the sky, live for this visitor ----------------
+   Photos by day, a rendered moon and star field at night.
+   Location comes from the connection only — no permission prompt. */
+(function(){
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const still = params.has('still');
+  if (still) document.documentElement.classList.add('still');
+  const forcedSky = params.get('sky');
+  const forcedCity = params.get('city');
+  const forceDay = params.has('day');
+  const DUBAI = { city: 'Dubai', country: 'United Arab Emirates', lat: 25.2048, lon: 55.2708 };
+
+  const WORDS = {
+    sunny:'Clear sky', partly:'Partly cloudy', cloudy:'Overcast', rain:'Rain',
+    storm:'Thunderstorm', snow:'Snow', fog:'Fog', night:'Clear night', 'partly-night':'Partly cloudy'
+  };
+  const ICONS = {
+    sunny:  '<svg viewBox="0 0 104 68" fill="none" stroke="rgba(255,255,255,.92)" stroke-width="2.2" stroke-linecap="round"><circle cx="52" cy="34" r="15"/><path d="M52 4v8M52 56v8M22 34h8M74 34h8M31 13l6 6M67 49l6 6M73 13l-6 6M37 49l-6 6"/></svg>',
+    partly: '<svg viewBox="0 0 104 68" fill="none"><g stroke="rgba(255,255,255,.92)" stroke-width="2.2" stroke-linecap="round"><circle cx="38" cy="24" r="12"/><path d="M38 6v6M38 36v6M20 24h6M50 24h6M25 11l4 4M47 33l4 4M51 11l-4 4"/></g><g fill="rgba(255,255,255,.93)"><circle cx="46" cy="49" r="10"/><circle cx="59" cy="42" r="13"/><circle cx="72" cy="50" r="9"/><rect x="38" y="50" width="42" height="9" rx="4.5"/></g></svg>',
+    cloudy: '<svg viewBox="0 0 104 68" fill="rgba(255,255,255,.93)"><circle cx="34" cy="42" r="13"/><circle cx="50" cy="33" r="17"/><circle cx="67" cy="43" r="12"/><rect x="22" y="43" width="58" height="12" rx="6"/><g fill="rgba(255,255,255,.55)"><circle cx="80" cy="26" r="7"/><circle cx="90" cy="30" r="5"/><rect x="74" y="29" width="21" height="7" rx="3.5"/></g></svg>',
+    rain:   '<svg viewBox="0 0 104 68" fill="none"><g fill="rgba(255,255,255,.93)"><circle cx="34" cy="34" r="12"/><circle cx="49" cy="26" r="16"/><circle cx="65" cy="35" r="11"/><rect x="23" y="35" width="54" height="11" rx="5.5"/></g><g stroke="rgba(255,255,255,.8)" stroke-width="2.4" stroke-linecap="round"><path d="M35 52l-4 11M50 52l-4 11M65 52l-4 11"/></g></svg>',
+    storm:  '<svg viewBox="0 0 104 68" fill="none"><g fill="rgba(255,255,255,.93)"><circle cx="34" cy="31" r="12"/><circle cx="49" cy="23" r="16"/><circle cx="65" cy="32" r="11"/><rect x="23" y="32" width="54" height="11" rx="5.5"/></g><path d="M56 46 44 63h10l-4 10 14-19h-9l5-8Z" fill="rgba(255,255,255,.92)"/></svg>',
+    snow:   '<svg viewBox="0 0 104 68" fill="none"><g fill="rgba(255,255,255,.93)"><circle cx="34" cy="32" r="12"/><circle cx="49" cy="24" r="16"/><circle cx="65" cy="33" r="11"/><rect x="23" y="33" width="54" height="11" rx="5.5"/></g><g stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"><path d="M36 52v10M31 55l10 4M41 55l-10 4M55 52v10M50 55l10 4M60 55l-10 4M74 52v10M69 55l10 4M79 55l-10 4"/></g></svg>',
+    fog:    '<svg viewBox="0 0 104 68" fill="none"><g fill="rgba(255,255,255,.9)"><circle cx="38" cy="28" r="12"/><circle cx="53" cy="21" r="15"/><circle cx="68" cy="29" r="11"/><rect x="27" y="29" width="52" height="10" rx="5"/></g><g stroke="rgba(255,255,255,.75)" stroke-width="2.4" stroke-linecap="round"><path d="M20 48h64M28 57h48M24 66h56"/></g></svg>',
+    night:  '<svg viewBox="0 0 104 68" fill="none"><path d="M58 12a22 22 0 1 0 26 30 24 24 0 0 1-26-30Z" fill="rgba(255,255,255,.93)"/><g fill="rgba(255,255,255,.7)"><circle cx="26" cy="20" r="2"/><circle cx="36" cy="40" r="1.5"/><circle cx="18" cy="46" r="1.5"/><circle cx="80" cy="12" r="1.5"/><circle cx="88" cy="34" r="2"/><circle cx="30" cy="56" r="1.5"/></g></svg>'
+  };
+  ICONS['partly-night'] = ICONS.night;
+
+  /* ---------- the nine skies, as preview tiles ---------- */
+  const STATES = [
+    {k:'sunny',        n:'Clear',              d:'Deep blue, hard sun',        night:false},
+    {k:'partly',       n:'Partly cloudy',      d:'Sun between cloud',          night:false},
+    {k:'cloudy',       n:'Overcast',           d:'Flat grey deck',             night:false},
+    {k:'rain',         n:'Rain',               d:'Wet, dim, moving',           night:false},
+    {k:'storm',        n:'Thunderstorm',       d:'Dark, lightning',            night:false},
+    {k:'fog',          n:'Fog',                d:'White-out haze',             night:false},
+    {k:'snow',         n:'Snow',               d:'Pale, falling flakes',       night:false},
+    {k:'night',        n:'Clear night',        d:'Moon, stars, milky way',     night:true},
+    {k:'partly-night', n:'Cloudy night',       d:'Moon behind cloud',          night:true}
+  ];
+  $('states').innerHTML = STATES.map(s =>
+    '<button class="st st-' + s.k + '" type="button" data-kind="' + s.k + '" aria-label="Preview the ' + s.n + ' sky">' +
+      '<span class="st-art" aria-hidden="true"><em></em><b></b><u></u></span>' +
+      '<span class="st-txt"><b>' + s.n + '</b><span>' + s.d + '</span></span>' +
+      '<span class="st-k">' + s.k.replace('-', ' ') + '</span>' +
+    '</button>'
+  ).join('');
+
+  /* ---------- engines: page sky + the board tile ---------- */
+  const pageEngine = window.SkyEngine ? window.SkyEngine($('pageSky'), {kind:'night', nm:true, scrollFactor:1, dpr:1.3}) : null;
+  const tileEngine = window.SkyEngine ? window.SkyEngine($('tileSky'), {kind:'night', nm:true, scrollFactor:0.2, dpr:1.25}) : null;
+  if (pageEngine) pageEngine.start();
+  if (tileEngine) tileEngine.start();
+
+  const PHOTO = {
+    sunny:  {layer:'a', filter:'none'},
+    partly: {layer:'a', filter:'saturate(.94) brightness(1.03)'},
+    cloudy: {layer:'b', filter:'saturate(.55) brightness(1.10) contrast(1.02)', tint:'linear-gradient(180deg,#dfe6ed40,#c2ccd74d)'},
+    rain:   {layer:'b', filter:'saturate(.92) brightness(.96)', tint:'linear-gradient(180deg,#7d93a814,#22303f33)'},
+    storm:  {layer:'b', filter:'saturate(.72) brightness(.74) contrast(1.12)', tint:'linear-gradient(180deg,#0b1620a6,#060d1473)'},
+    snow:   {layer:'b', filter:'saturate(.20) brightness(1.48) contrast(.92)', tint:'linear-gradient(180deg,#eef4f9b3,#dfe9f2a6)'},
+    fog:    {layer:'b', filter:'saturate(.16) brightness(1.46)', tint:'linear-gradient(180deg,#e6edf3cc,#d9e3ebcc)'}
+  };
+  function setSky(kind, night){
+    const wrap = $('pageWrap'), tile = $('tileWrap');
+    wrap.classList.toggle('night', night);
+    wrap.dataset.sky = kind;
+    tile.dataset.sky = kind;
+    tile.classList.toggle('night', night);
+    const cfg = PHOTO[kind] || PHOTO.cloudy;
+    [['pagePhA','pagePhB','pageTint'], ['tilePhA','tilePhB','tileTint']].forEach(ids => {
+      const a = $(ids[0]), b = $(ids[1]), tint = $(ids[2]);
+      if (night){ a.classList.remove('on'); b.classList.remove('on'); tint.style.background = 'none'; return; }
+      const on = cfg.layer === 'a' ? a : b;
+      a.classList.toggle('on', on === a);
+      b.classList.toggle('on', on === b);
+      on.style.filter = cfg.filter;
+      tint.style.background = cfg.tint || 'none';
+    });
+    document.querySelectorAll('.st').forEach(el => el.classList.toggle('active', el.dataset.kind === kind));
+  }
+
+  function kindFor(code, day){
+    if(code === 0) return day ? 'sunny' : 'night';
+    if(code === 1 || code === 2) return day ? 'partly' : 'partly-night';
+    if(code === 3) return 'cloudy';
+    if(code === 45 || code === 48) return 'fog';
+    if(code >= 51 && code <= 67) return 'rain';
+    if(code >= 71 && code <= 77) return 'snow';
+    if(code >= 80 && code <= 82) return 'rain';
+    if(code === 85 || code === 86) return 'snow';
+    if(code >= 95) return 'storm';
+    return day ? 'cloudy' : 'night';
+  }
+
+  function greet(){
+    const h = new Date().getHours();
+    return h >= 5 && h < 12 ? 'Good morning' : h >= 12 && h < 17 ? 'Good afternoon' : 'Good evening';
+  }
+  function isNightNow(kind, manual){
+    if (/night/.test(kind)) return true;
+    if (forceDay) return false;
+    if (manual) return false;
+    const h = new Date().getHours();
+    return h < 6 || h >= 19;
+  }
+
+  let kindNow = 'cloudy', placeLabel = 'Dubai', liveNow = false;
+
+  function paint(kind, place, live, manual){
+    kindNow = kind;
+    if (place) placeLabel = place;
+    liveNow = !!live;
+    const night = isNightNow(kind, manual);
+    if (pageEngine) pageEngine.set(kind, night, {still});
+    if (tileEngine) tileEngine.set(kind, night, {still});
+    setSky(kind, night);
+
+    $('tileIcon').innerHTML = ICONS[kind] || ICONS.cloudy;
+    $('tileCond').textContent = WORDS[kind] || 'Sky';
+    $('tilePlace').textContent = placeLabel;
+    $('tileLive').textContent = live ? 'LIVE' : 'SAMPLE';
+    $('chipText').textContent = (WORDS[kind] || 'Sky') + ' · ' + placeLabel;
+    $('skycap').innerHTML = (live ? 'Your live sky over <b>' : (manual ? 'Preview sky · <b>' : 'Sample sky · <b>')) +
+      placeLabel + '</b> · shop figures are sample data';
+  }
+
+  /* ---------- the board ---------- */
+  const SAMPLE = {today: 18450, hi: 6850, lo: 850, sales: 7, stock: 48, potential: 96400, repairs: 5, brands: '28 iPhone · 12 Samsung'};
+  const WEEK = [6100, 5100, 4700, 6850, 14200, 17250, 0];
+  const DOW = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+
+  function countUp(el, target, suffix){
+    if (reduce || still){ el.textContent = target.toLocaleString('en-US') + (suffix || ''); return; }
+    let t0 = null;
+    const dur = 1400;
+    function step(t){
+      if (!t0) t0 = t;
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.round(target * e).toLocaleString('en-US') + (suffix || '');
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function renderBoard(){
+    $('tileGreet').textContent = greet();
+    $('todayLabel').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    countUp($('tileNum'), SAMPLE.today);
+
+    const todayIdx = (new Date().getDay() + 6) % 7;
+    const vals = WEEK.map((v, i) => i === todayIdx ? SAMPLE.today : i > todayIdx ? null : v);
+    $('tileWeek').innerHTML = vals.map((v, i) => {
+      const on = i === todayIdx ? ' class="on"' : '';
+      return '<div' + on + '>' + DOW[i] + '<b>' + (v === null ? '—' : 'AED ' + v.toLocaleString('en-US')) + '</b></div>';
+    }).join('');
+  }
+
+  /* clock */
+  function tick(){
+    const d = new Date();
+    $('clock').textContent = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 15000);
+
+  /* ---------- weather ---------- */
+  async function locate(){
+    if (forcedCity) return {city: forcedCity, country: '', lat: null, lon: null};
+    try{
+      const r = await fetch('https://ipwho.is/', {cache:'no-store'});
+      const d = await r.json();
+      if (d && d.success !== false && Number.isFinite(d.latitude)) return {city:d.city||d.region||'Your city', country:d.country||'', lat:d.latitude, lon:d.longitude};
+    }catch(e){}
+    try{
+      const r = await fetch('https://ipapi.co/json/', {cache:'no-store'});
+      const d = await r.json();
+      if (d && Number.isFinite(d.latitude)) return {city:d.city||d.region||'Your city', country:d.country_name||'', lat:d.latitude, lon:d.longitude};
+    }catch(e){}
+    return DUBAI;
+  }
+  async function weather(lat, lon){
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&current=weather_code,is_day,cloud_cover,wind_speed_10m&timezone=auto';
+    const r = await fetch(url, {cache:'no-store'});
+    if (!r.ok) throw new Error('weather ' + r.status);
+    const d = await r.json();
+    if (!d || !d.current || !Number.isFinite(d.current.weather_code)) throw new Error('bad weather');
+    return d.current;
+  }
+
+  async function refresh(manual){
+    if (manual) return;
+    try{
+      const place = await locate();
+      const label = place.city + (place.country ? ', ' + place.country : '');
+      if (place.lat === null){ paint('cloudy', label, false); return; }
+      const now = await weather(place.lat, place.lon);
+      paint(kindFor(now.weather_code, now.is_day === 1), label, true);
+    }catch(e){
+      let cached = null;
+      try{ cached = JSON.parse(sessionStorage.getItem('ph-sky')); }catch(err){}
+      if (cached && cached.kind) paint(cached.kind, cached.city, false);
+      else paint('cloudy', 'Dubai', false);
+    }
+    try{
+      if (liveNow) sessionStorage.setItem('ph-sky', JSON.stringify({kind: kindNow, city: placeLabel}));
+    }catch(e){}
+  }
+
+  renderBoard();
+  document.querySelectorAll('[data-count]').forEach(el => {
+    if (el.closest('.reveal')) return;
+    el.dataset.done = '1';
+    countUp(el, Number(el.dataset.count), el.dataset.suffix || '');
+  });  if (forcedSky) paint(forcedSky, forcedCity || 'Dubai', false, true);
+  else refresh();
+
+  /* preview a sky by tapping its tile */
+  document.querySelectorAll('.st').forEach(el => {
+    el.addEventListener('click', () => paint(el.dataset.kind, placeLabel, false, true));
+  });
+  $('backLive').addEventListener('click', () => {
+    let cached = null;
+    try{ cached = JSON.parse(sessionStorage.getItem('ph-sky')); }catch(e){}
+    if (cached && cached.kind) paint(cached.kind, cached.city, true);
+    else refresh();
   });
 
-  const tourRow = document.querySelector('.tour-row');
-  if (tourRow) {
-    const closeAll = () => tourRow.querySelectorAll('.open').forEach(t => t.classList.remove('open'));
-    tourRow.addEventListener('click', (e) => {
-      const tile = e.target.closest('.tile');
-      if (!tile) return;
-      const wasOpen = tile.classList.contains('open');
-      closeAll();
-      if (!wasOpen) tile.classList.add('open');
-    });
-    tourRow.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      const tile = e.target.closest('.tile');
-      if (!tile) return;
-      e.preventDefault();
-      tile.classList.toggle('open');
-    });
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.tour-row')) closeAll();
+  /* ---------- scroll: sun sinks, progress fills, reveals fire ---------- */
+  let raf = 0;
+  window.skyScroll = window.scrollY || 0;
+  const bar = $('progressBar');
+  function onScroll(){
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const y = window.scrollY || 0;
+      window.skyScroll = y;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, y / h) : 0) + ')';
+      document.querySelector('.topbar-wrap').classList.toggle('stuck', y > 20);
     });
   }
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  const yHint = params.get('y');
+  if (yHint) setTimeout(() => window.scrollTo({top: Number(yHint) || 0, behavior: 'instant'}), 60);
+
+  if (!reduce){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        e.target.querySelectorAll('[data-count]').forEach(el => {
+          if (el.dataset.done) return;
+          el.dataset.done = '1';
+          countUp(el, Number(el.dataset.count), el.dataset.suffix || '');
+        });
+        io.unobserve(e.target);
+      });
+    }, {threshold: 0.16, rootMargin: '0px 0px -40px'});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    document.querySelectorAll('[data-count]').forEach(el => el.textContent = el.dataset.count + (el.dataset.suffix || ''));
+  }
+})();
 </script>
 </body>
 </html>
