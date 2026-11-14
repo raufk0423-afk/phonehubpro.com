@@ -21,6 +21,13 @@
 <meta name="twitter:description" content="Free phone shop software for inventory, IMEI tracking, billing, repairs and profit reports. Runs offline on your Mac or PC.">
 <meta name="twitter:image" content="https://phonehubpro.com/assets/logo.png">
 <meta name="theme-color" content="#071220">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CGF8RLWVDG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CGF8RLWVDG', { anonymize_ip: true });
+</script>
 <link rel="icon" href="assets/logo.png">
 <link rel="apple-touch-icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,7 +160,7 @@
       <a href="#install">Install</a>
       <a href="#support">Questions</a>
     </nav>
-    <a class="dl os-nav-btn" href="downloads/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download for Mac</span></a>
+    <a class="dl os-nav-btn" href="https://github.com/raufk0423-afk/phonehubpro.com/releases/download/v12.9.2/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download for Mac</span></a>
   </div>
 </div>
 
@@ -166,7 +173,7 @@
       <h1 class="display"><span class="vh">PhoneHub Pro — </span>Your shop.<br><em>Under its own sky.</em></h1>
       <p class="lede os-lede">Stock, IMEI history, billing, repairs and profit — fast, offline, and yours. The board greets you in today's real sky, over your city.</p>
       <div class="cta">
-        <a class="dl os-dl-hero" href="downloads/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download free ↓</span></a>
+        <a class="dl os-dl-hero" href="https://github.com/raufk0423-afk/phonehubpro.com/releases/download/v12.9.2/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download free ↓</span></a>
         <a class="ghost" href="#day">Walk the counter ›</a>
       </div>
       <p class="trust os-line">For Mac · macOS 14+ · Apple Silicon · 38 MB · no account, no fee</p>
@@ -526,11 +533,11 @@
             <b class="os-dl-name">PhoneHub Pro for Mac</b>
             <span class="os-dl-sub">v12.9.2 · DMG · 38 MB · macOS 14+ · Apple Silicon</span>
           </div>
-          <a class="dl os-card-btn" href="downloads/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download</span></a>
+          <a class="dl os-card-btn" href="https://github.com/raufk0423-afk/phonehubpro.com/releases/download/v12.9.2/PhoneHubPro-12.9.2.dmg" download><span class="os-label">Download</span></a>
         </div>
       </div>
       <p class="caption center">No account · no subscription · your data, your machine</p>
-      <p class="other-os">Also available <a class="os-other-link" href="downloads/PhoneHubPro-12.9.2-Windows-Setup.exe" download>for Windows</a>.</p>
+      <p class="other-os">Also available <a class="os-other-link" href="https://github.com/raufk0423-afk/phonehubpro.com/releases/download/v12.9.2/PhoneHubPro-12.9.2-Windows-Setup.exe" download>for Windows</a>.</p>
     </div>
   </section>
 
@@ -595,8 +602,8 @@
   const os = forced === 'win' || forced === 'mac' ? forced : (isWin ? 'win' : 'mac');
   document.documentElement.dataset.os = os;
 
-  const DMG = 'downloads/PhoneHubPro-12.9.2.dmg';
-  const EXE = 'downloads/PhoneHubPro-12.9.2-Windows-Setup.exe';
+  const DMG = 'https://github.com/raufk0423-afk/phonehubpro.com/releases/download/v12.9.2/PhoneHubPro-12.9.2.dmg';
+  const EXE = 'https://github.com/raufk0423-afk/phonehubpro.com/releases/download/v12.9.2/PhoneHubPro-12.9.2-Windows-Setup.exe';
 
   if (os === 'win') {
     document.querySelectorAll('.os-nav-btn,.os-dl-hero').forEach(a => a.href = EXE);
@@ -915,6 +922,24 @@
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
     document.querySelectorAll('[data-count]').forEach(el => el.textContent = el.dataset.count + (el.dataset.suffix || ''));
   }
+})();
+</script>
+<script>
+/* count real download clicks in Google Analytics */
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || typeof window.gtag !== 'function') return;
+    var href = a.href || '';
+    var ext = /\.dmg(\?|$)/i.test(href) ? 'dmg' : /\.exe(\?|$)/i.test(href) ? 'exe' : '';
+    if (!ext) return;
+    window.gtag('event', 'download', {
+      file_name: href.split('/').pop(),
+      file_extension: ext,
+      link_url: href,
+      transport_type: 'beacon'
+    });
+  }, true);
 })();
 </script>
 </body>
